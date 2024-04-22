@@ -25,20 +25,30 @@ const Button = ({ onClick }) => {
   return <button onClick={onClick}>Add Todo</button>;
 };
 
-const ToDoList = ({ todos }) => {
-  return (
-    <div>
-      {todos.map((todo, index) => (
-        <div key={index}>
-          <input type="checkbox" id={`todoCheckbox${index}`} />
-          <label htmlFor={`todoCheckbox${index}`}>{todo}</label>
-        </div>
-      ))}
-    </div>
-  );
-};
+
 
 const App = () => {
+  
+  const handleDelete = ({todos, index}) =>{
+    let todosCopy = [...todos]
+    todosCopy.splice(index,1)
+    setTodos(todosCopy);
+  }
+  
+  
+  const ToDoList = ({ todos }) => {
+    return (
+      <div>
+        {todos.map((todo, index) => (
+          <div key={index}>
+            <input type="checkbox" id={`todoCheckbox${index}`} />
+            <label htmlFor={`todoCheckbox${index}`}>{todo}</label>
+            <button onClick = {() => handleDelete({todos , index})}>X</button>
+          </div>
+        ))}
+      </div>
+    );
+  };
   const [todos, setTodos] = React.useState([]);
   const [inputValue, setInputValue] = React.useState("");
 
